@@ -42,6 +42,23 @@ attr_accessor :name, :id
 
   end
 
+  def delete
+   db = PG.connect ( {dbname: "music_collection", host: 'localhost'})
+   sql = "DELETE FROM artist WHERE id = $1"
+   values = [@id]
+   db.prepare("delete_one", sql)
+   db.exec_prepared("delete_one", values)
+   db.close()
+  end
+
+  def Artist.delete_all()
+    db = PG.connect ( {dbname: 'music_collection', host: 'localhost'})
+    sql = "DELETE FROM artist"
+    db.prepare("delete_all", sql)
+    db.exec_prepared("delete_all")
+    db.close()
+  end
+
 
 
 end

@@ -41,6 +41,22 @@ attr_accessor :title, :genre, :artist_id, :id
     return results.map { |artist| Artist.new(artist) }
   end
 
+  def Album.delete_all()
+    db = PG.connect ( {dbname: 'music_collection', host: 'localhost'})
+    sql = "DELETE FROM album"
+    db.prepare("delete_all", sql)
+    db.exec_prepared("delete_all")
+    db.close()
+  end
+
+  def delete
+   db = PG.connect ( {dbname: "music_collection", host: 'localhost'})
+   sql = "DELETE FROM album WHERE id = $1"
+   values = [@id]
+   db.prepare("delete_one", sql)
+   db.exec_prepared("delete_one", values)
+   db.close()
+  end
 
 
 end
