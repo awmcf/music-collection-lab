@@ -46,6 +46,7 @@ album_list = Album.list_all_albums
 
 green_day_albums = artist_2.list_all_albums_by_artist()
 
+album_1.show_artist
 
 binding.pry
 nil

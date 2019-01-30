@@ -31,15 +31,14 @@ attr_accessor :title, :genre, :artist_id, :id
     return results.map { |album| Album.new(album) }
   end
 
-  def list_artist_by_album
+  def show_artist
     db = PG.connect( {dbname: "music_collection", host: "localhost"})
-    sql = "SELECT * FROM artist WHERE artist_id = ($1)"
+    sql = "SELECT * FROM artist WHERE id = ($1)"
     values = [@artist_id]
-    db.prepare("list_all_albums_by_artist", sql)
-    results = db.exec_prepared("list_all_albums_by_artist", values)
+    db.prepare("show_artist", sql)
+    results = db.exec_prepared("show_artist", values)
     db.close()
-    return results.map { |album| Album.new(album) }
-
+    return results.map { |artist| Artist.new(artist) }
   end
 
 
